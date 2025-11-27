@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox)
+from PyQt5.QtWidgets import (QApplication, QWidget, QPushButton, QVBoxLayout, QMessageBox, QPlainTextEdit)
 from PyQt5.QtGui import QIcon
 
 class Calculator(QWidget):
@@ -11,10 +11,12 @@ class Calculator(QWidget):
         self.btn1=QPushButton('Message', self)
         self.btn1.clicked.connect(self.activateMessage)
 
+        self.text_edit = QPlainTextEdit()
+        self.text_edit.setReadOnly(True)
+
         vbox = QVBoxLayout()
-        vbox.addStretch(1)
+        vbox.addWidget(self.text_edit)
         vbox.addWidget(self.btn1)
-        vbox.addStretch(1)
 
         self.setLayout(vbox)
 
@@ -24,7 +26,7 @@ class Calculator(QWidget):
         self.show()
     
     def activateMessage(self):
-        QMessageBox.information(self, 'information', 'Button clicked!')
+        self.text_edit.appendPlainText('Button clicked!')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
